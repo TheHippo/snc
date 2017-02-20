@@ -8,9 +8,11 @@ import (
 )
 
 // injected when building
-var version = "undefined"
-var date = "undefined"
-var goVersion = "undefined"
+var (
+	version   = "undefined"
+	date      = "undefined"
+	goVersion = "undefined"
+)
 
 var listen snc.OptionalIntValue
 
