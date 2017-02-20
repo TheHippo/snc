@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/TheHippo/snc.svg?branch=master)](https://travis-ci.org/TheHippo/snc)
+[![Build Status](https://travis-ci.org/TheHippo/snc.svg?branch=develop)](https://travis-ci.org/TheHippo/snc)
 
 # snc
 
