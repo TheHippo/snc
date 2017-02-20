@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/TheHippo/snc.svg?branch=master)](https://travis-ci.org/TheHippo/snc)
+
 # snc
 
 Like `netcat`, but with TLS.
