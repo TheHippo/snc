@@ -12,7 +12,8 @@ test:
 	go test -v github.com/TheHippo/snc/...
 
 lint:
-	golint github.com/TheHippo/snc/...
+	golint *.go
+	golint cmd/snc/*.go
 
 vet:
 	go vet github.com/TheHippo/snc/...
