@@ -9,6 +9,8 @@ import (
 
 // injected when building
 var version = "undefined"
+var date = "undefined"
+var goVersion = "undefined"
 
 var listen utils.OptionalIntValue
 
