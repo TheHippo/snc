@@ -4,3 +4,6 @@ go:
   - 1.6.x
   - 1.7.x
   - 1.8.x
+
+before_install:
+  - go get -u github.com/golang/lint/golint
