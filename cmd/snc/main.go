@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/TheHippo/snc"
 	flag "github.com/ogier/pflag"
@@ -30,13 +31,18 @@ func main() {
 		fmt.Printf("Go version: %s\n", goVersion)
 		return
 	}
-	fmt.Println(listen)
-	// if listen.set == true {
-	// 	// open the server and listen
-	// 	fmt.Println("Starting server")
-	// } else {
-	// 	fmt.Println("Starting client")
-	// 	// connect to server
-	// }
+	if listen.Parsed == true {
+		// open the server and listen
+		fmt.Println("Starting server")
+	} else {
+		fmt.Println("Starting client")
+		host, port, err := snc.ParseArgs(os.Args)
+		if err != nil {
+			fmt.Println(err.Error())
+			os.Exit(1)
+		}
+		fmt.Println(host, port)
+		// connect to server
+	}
 
 }
