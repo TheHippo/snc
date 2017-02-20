@@ -4,7 +4,6 @@ import (
 	"crypto/tls"
 	"fmt"
 	"net"
-	"os"
 	"sync"
 )
 
@@ -34,11 +33,9 @@ func (s *Server) Listen() error {
 	if err != nil {
 		return err
 	}
-	w := os.Stdout
 	listener, err := tls.Listen("tcp", fmt.Sprintf("%s:%d", s.ip.String(), s.port), &tls.Config{
 		InsecureSkipVerify: true,
 		Certificates:       []tls.Certificate{cert},
-		KeyLogWriter:       w,
 		// MinVersion:         tls.VersionSSL30,
 	})
 	if err != nil {
