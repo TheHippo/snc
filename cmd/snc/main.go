@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/TheHippo/snc/utils"
+	"github.com/TheHippo/snc"
 	flag "github.com/ogier/pflag"
 )
 
@@ -12,7 +12,7 @@ var version = "undefined"
 var date = "undefined"
 var goVersion = "undefined"
 
-var listen utils.OptionalIntValue
+var listen snc.OptionalIntValue
 
 func init() {
 	flag.VarP(&listen, "listen", "l", "port to listen")
