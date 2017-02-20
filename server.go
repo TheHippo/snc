@@ -3,7 +3,9 @@ package snc
 import (
 	"crypto/tls"
 	"fmt"
+	"io"
 	"net"
+	"os"
 	"sync"
 )
 
@@ -43,28 +45,28 @@ func (s *Server) Listen() error {
 	}
 	s.listener = listener
 	for {
-		con, err := s.listener.Accept()
+		conn, err := s.listener.Accept()
 		if err != nil {
 			return err
 		}
-		if s.checkConnection(con) == true {
-			go s.handleConnection(con)
+		if s.checkConnection(conn) == true {
+			go s.handleConnection(conn)
 		}
 	}
 }
 
-func (s *Server) checkConnection(con net.Conn) bool {
+func (s *Server) checkConnection(conn net.Conn) bool {
 	s.hasConnectionLock.RLock()
 	defer s.hasConnectionLock.RUnlock()
 	if s.hasConnection == true {
 		fmt.Println("Already got active connections")
-		con.Close()
+		conn.Close()
 		return false
 	}
 	return true
 }
 
-func (s *Server) handleConnection(con net.Conn) {
+func (s *Server) handleConnection(conn net.Conn) {
 	s.hasConnectionLock.Lock()
 	s.hasConnection = true
 	s.hasConnectionLock.Unlock()
@@ -73,6 +75,24 @@ func (s *Server) handleConnection(con net.Conn) {
 		s.hasConnection = false
 		s.hasConnectionLock.Unlock()
 	}()
-	fmt.Println("Handle incoming connection", con.RemoteAddr().String())
+	fmt.Println("Handle incoming connection", conn.RemoteAddr().String())
 
+	var wg sync.WaitGroup
+	wg.Add(2)
+	go func() {
+		_, err := io.Copy(os.Stdout, conn)
+		if err != nil {
+			fmt.Println(err)
+		}
+		os.Exit(0)
+	}()
+
+	go func() {
+		_, err := io.Copy(conn, os.Stdin)
+		if err != nil {
+			fmt.Println(err)
+		}
+		os.Exit(0)
+	}()
+	wg.Wait()
 }
