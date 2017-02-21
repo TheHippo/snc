@@ -21,7 +21,7 @@ var showVersion bool
 
 func init() {
 	flag.BoolVarP(&showVersion, "version", "v", false, "display snc version")
-	flag.StringVarP(&bind, "bind", "b", "0.0.0.0", "ip adress to bind")
+	flag.StringVarP(&bind, "bind", "b", "0.0.0.0", "ip address to bind")
 	flag.VarP(&listen, "listen", "l", "port to listen")
 	flag.Parse()
 }
