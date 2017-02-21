@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/TheHippo/snc.svg?branch=develop)](https://travis-ci.org/TheHippo/snc)
+[![Go Report Card](https://goreportcard.com/badge/github.com/TheHippo/snc)](https://goreportcard.com/report/github.com/TheHippo/snc)
 
 # snc
 
