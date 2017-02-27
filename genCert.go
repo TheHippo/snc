@@ -44,8 +44,9 @@ func generateCert(host string) (*bytes.Buffer, *bytes.Buffer, error) {
 		NotBefore: notBefore,
 		NotAfter:  notAfter,
 
-		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
-		ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+		KeyUsage:    x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
+		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+		IsCA:        true,
 		BasicConstraintsValid: true,
 	}
 
@@ -54,9 +55,6 @@ func generateCert(host string) (*bytes.Buffer, *bytes.Buffer, error) {
 	} else {
 		template.DNSNames = append(template.DNSNames, host)
 	}
-
-	template.IsCA = true
-	template.KeyUsage |= x509.KeyUsageCertSign
 
 	derBytes, err := x509.CreateCertificate(rand.Reader, &template, &template, &priv.PublicKey, priv)
 	if err != nil {
@@ -73,6 +71,9 @@ func generateCert(host string) (*bytes.Buffer, *bytes.Buffer, error) {
 		return cert, key, err
 	}
 
-	pem.Encode(key, &pem.Block{Type: "EC PRIVATE KEY", Bytes: b})
+	pem.Encode(key, &pem.Block{
+		Type:  "EC PRIVATE KEY",
+		Bytes: b,
+	})
 	return cert, key, nil
 }
