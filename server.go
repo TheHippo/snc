@@ -9,6 +9,7 @@ import (
 	"sync"
 )
 
+// Server contains all information about a snc server
 type Server struct {
 	hasConnection     bool
 	hasConnectionLock sync.RWMutex
@@ -17,6 +18,7 @@ type Server struct {
 	listener          net.Listener
 }
 
+// NewServer creates a new server from an listening ip and port
 func NewServer(ip string, port int) *Server {
 	return &Server{
 		ip:            net.ParseIP(ip),
@@ -25,6 +27,7 @@ func NewServer(ip string, port int) *Server {
 	}
 }
 
+// Listen attempts to start the server and opens the TCP port
 func (s *Server) Listen() error {
 	certPem, keyPEM, err := generateCert(s.ip.String())
 	if err != nil {

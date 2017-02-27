@@ -8,12 +8,14 @@ import (
 	"sync"
 )
 
+// Client holds all informations about an snc client
 type Client struct {
 	host string
 	port int
 	conn *tls.Conn
 }
 
+// NewClient creates a new client from hostname and target port
 func NewClient(host string, port int) *Client {
 	return &Client{
 		host: host,
@@ -21,6 +23,7 @@ func NewClient(host string, port int) *Client {
 	}
 }
 
+// Dial attemps to open an TCP connection to the server
 func (c *Client) Dial() error {
 	conn, err := tls.Dial("tcp", fmt.Sprintf("%s:%d", c.host, c.port), &tls.Config{
 		InsecureSkipVerify: true,

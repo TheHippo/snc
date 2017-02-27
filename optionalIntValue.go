@@ -7,6 +7,7 @@ import (
 	flag "github.com/ogier/pflag"
 )
 
+// OptionalIntValue allows int-flags to be empty but still be triggered
 type OptionalIntValue struct {
 	Init   bool
 	Parsed bool
@@ -23,6 +24,7 @@ func (lv *OptionalIntValue) String() string {
 	return fmt.Sprintf("%t %d", lv.Parsed, lv.Value)
 }
 
+// Set checks whether an command line argument has an int and if parses it
 func (lv *OptionalIntValue) Set(input string) error {
 	lv.Init = true
 	if input == "" {

@@ -5,6 +5,7 @@ import (
 	"strconv"
 )
 
+// ParseArgs parses hostname and port from command line arguments
 func ParseArgs(args []string) (string, uint32, error) {
 	if len(args) < 3 {
 		return "", 0, errors.New("Need at least hostname and port")
